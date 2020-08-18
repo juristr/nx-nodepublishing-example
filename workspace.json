@@ -1,7 +1,72 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "nodeapp": {
+      "root": "apps/nodeapp",
+      "sourceRoot": "apps/nodeapp/src",
+      "projectType": "application",
+      "prefix": "nodeapp",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/nodeapp",
+            "main": "apps/nodeapp/src/main.ts",
+            "tsConfig": "apps/nodeapp/tsconfig.app.json",
+            "assets": [
+              "apps/nodeapp/src/assets",
+              {
+                "input": ".",
+                "glob": "package.json",
+                "output": "."
+              }
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/nodeapp/src/environments/environment.ts",
+                  "with": "apps/nodeapp/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "nodeapp:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/nodeapp/tsconfig.app.json",
+              "apps/nodeapp/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/nodeapp/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/nodeapp/jest.config.js",
+            "tsConfig": "apps/nodeapp/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+    "defaultCollection": "@nrwl/node"
+  },
+  "defaultProject": "nodeapp"
 }
