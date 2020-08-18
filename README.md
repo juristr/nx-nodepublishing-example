@@ -1,8 +1,15 @@
 # Nodewrkspace
 
-## Node support
+Links and resources:
 
-https://nx.dev/angular/plugins/node/overview
+- https://nx.dev
+- https://nx.dev/angular/plugins/node/overview
+
+## How this workspace got generated
+
+```
+$ npx create-nx-workspace nodewrkspace --preset=empty
+```
 
 ## Configuring package.json copying
 
