@@ -61,6 +61,20 @@
             "tsConfig": "apps/nodeapp/tsconfig.spec.json",
             "passWithNoTests": true
           }
+        },
+        "pack": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": false,
+            "commands": [
+              {
+                "command": "nx run nodeapp:build"
+              },
+              {
+                "command": "echo '>>> publishing to npm here <<<'"
+              }
+            ]
+          }
         }
       }
     }
